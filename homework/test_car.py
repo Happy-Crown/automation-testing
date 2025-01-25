@@ -10,9 +10,15 @@ def car():
 def test_default_mileage(car):
     assert car.mileage == 1000
 
-def test_increse_mileage(car):
-    car.drive(1000)
-    assert car.mileage == 2000
+@pytest.mark.parametrize("distance, result", [
+    (0, 1000),
+    (1, 1001),
+    (1000, 2000),
+    (0.5, 1000.5)
+])
+def test_increse_mileage(car, distance, result):
+    car.drive(distance)
+    assert car.mileage == result
 
 def test_decrese_mileage_not_supported(car):
     with pytest.raises(ValueError):
