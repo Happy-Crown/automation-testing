@@ -9,9 +9,11 @@ class Car:
     def __str__(self):
          return f"'{self.model}' by '{self.brand}' with {self.mileage}km mileage"
 
+    # Метод для увеличения пробега автомобиля
     def drive(self, distance):
+        if distance < 0:
+            raise ValueError("Пробег не может быть уменьшен!")
         self.mileage += distance
-        return self.mileage
     
     
 my_car = Car("Lada", "Vesta", 2011, 20000)
