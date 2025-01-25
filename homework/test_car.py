@@ -3,27 +3,43 @@ from base_programming import Car
 
 
 @pytest.fixture
-def car():
-    return Car("Hunday", "Solaris", 2017, 1000)
+def base_car():
+    return Car(brand="Hunday", model="Solaris", year =2017)
+
+@pytest.fixture
+def premium_car():
+    return Car(brand="Tesla", model="Model S", year=2023)
 
 
-def test_default_mileage(car):
-    assert car.mileage == 1000
+# Проверки метода drive класса Car
+def test_default_mileage(base_car):
+    assert base_car.mileage == 0
 
 @pytest.mark.parametrize("distance, result", [
-    (0, 1000),
-    (1, 1001),
-    (1000, 2000),
-    (0.5, 1000.5)
+    (0, 0),
+    (1000, 1000),
+    (50.5, 50.5)
 ])
-def test_increse_mileage(car, distance, result):
-    car.drive(distance)
-    assert car.mileage == result
+def test_increse_mileage(base_car, distance, result):
+    base_car.drive(distance)
+    assert base_car.mileage == result
 
-def test_decrese_mileage_not_supported(car):
+def test_multiple_increse_mileage(base_car):
+    base_car.drive(500)
+    base_car.drive(1000)
+    assert base_car.mileage == 1500
+
+def test_decrese_mileage_not_supported(base_car):
     with pytest.raises(ValueError):
-        car.drive(-50)
+        base_car.drive(-50)
 
-def test_str_method_check(car):
-    expected = "'Solaris' by 'Hunday' with 1000km mileage"
-    assert str(car) == expected
+# Проверки метода __str__ класса Car
+def test_str_method_check(base_car):
+    expected = "'Solaris' by 'Hunday' with 0km mileage"
+    assert str(base_car) == expected
+
+def test_str_method_after_increse_mileage(premium_car):
+    premium_car.drive(5000)
+    expected = "'Model S' by 'Tesla' with 5000km mileage"
+    assert str(premium_car) == expected
+    
