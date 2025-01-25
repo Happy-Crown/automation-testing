@@ -19,6 +19,20 @@ class Car:
 my_car = Car("Lada", "Vesta", 2011, 20000)
 print(my_car)
 
+# Проверка увеличения пробега
 print(my_car.mileage)
 my_car.drive(100)
 print(my_car.mileage)
+
+# Проверка увеличения пробега несколько раз подряд
+my_car.drive(10)
+my_car.drive(20)
+my_car.drive(50)
+print(my_car.mileage)
+
+# Создание второго экземпляра класса
+fren_car = Car("Shevrale", "Niva", 2000, 5000)
+print(fren_car)
+print(fren_car.mileage)
+fren_car.drive(200)
+print(fren_car.mileage)
